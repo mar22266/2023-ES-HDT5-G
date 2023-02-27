@@ -8,7 +8,7 @@ RANDOM_SEED = 25
 RAM_SIZE = 100 # tamanio de la memoria RAM en MB
 CPU_SPEED = 3 # velocidad del CPU en unidades de tiempo por instruc
 N_PROCESSES = 200 # cantidad de procesos a simular
-SIM_TIME = 1000000 # tiempo total de simulación
+SIM_TIME = 1000000 # tiempo total de simulacion en unidades de tiempo que se le dan suficientes para que el programa se ejecute
 INTERVAL = 10 # intervalo de tiempo para la llegada de nuevos procesos
 N_CPUS = 1 # cantidad de procesadores en el sistema
 
@@ -44,5 +44,27 @@ def process(env, name, cpu, ram, instr):
     turnaround_times.append(env.now - ready_time)
     response_times.append(ready_time - env.now + CPU_SPEED)
 
+#funcion generadora de procesos
+def generate_processes(env, cpu, ram):
+    for i in range(N_PROCESSES):
+        instr = random.randint(1, 10) 
+        env.process(process(env, f"Proceso {i}", cpu, ram, instr))
+        inter_arrival = random.expovariate(1/INTERVAL) 
+        yield env.timeout(inter_arrival)
 
+# config la simulacion
+random.seed(RANDOM_SEED)
+env = simpy.Environment()
+cpu = simpy.Resource(env, capacity=N_CPUS)
+ram = simpy.Container(env, init=RAM_SIZE, capacity=RAM_SIZE)
+env.process(generate_processes(env, cpu, ram))
 
+# ejecutar la simulación
+env.run(until=SIM_TIME)
+
+# mostrar estadisticas
+print("\n-----------------------------------------------------")
+print("STATS: \n")
+print(f"Tiempo promedio de espera: {statistics.mean(wait_times):.2f}")
+print(f"Desviación estándar del tiempo de espera: {statistics.stdev(wait_times):.2f}")
+print("-----------------------------------------------------\n")
