@@ -5,12 +5,12 @@ import random
 import statistics
 
 RANDOM_SEED = 25
-RAM_SIZE = 100 # tamanio de la memoria RAM en MB
+RAM_SIZE = 200 # tamanio de la memoria RAM en MB
 CPU_SPEED = 3 # velocidad del CPU en unidades de tiempo por instruc
-N_PROCESSES = 200 # cantidad de procesos a simular
+N_PROCESSES = 25 # cantidad de procesos a simular
 SIM_TIME = 1000000 # tiempo total de simulacion en unidades de tiempo que se le dan suficientes para que el programa se ejecute
-INTERVAL = 10 # intervalo de tiempo para la llegada de nuevos procesos
-N_CPUS = 1 # cantidad de procesadores en el sistema
+INTERVAL = 5 # intervalo de tiempo para la llegada de nuevos procesos
+N_CPUS = 2 # cantidad de procesadores en el sistema
 
 # variables para almacenar estadisticas
 wait_times = []
