@@ -1,5 +1,7 @@
 #Andre marroquin, Gabriel paz, Andy fuentes.
 #HDT 5
+#ALGORITMOS Y ESTRUCTURAS DE DATOS
+#SIMULACION DE PROCESOS
 import simpy
 import random
 import statistics
