@@ -38,5 +38,11 @@ def process(env, name, cpu, ram, instr):
                 print(f"{name} vuelve al estado 'ready' en t={env.now}")
                 ready_time = env.now
 
+    ram.put(mem) 
+    print(f"{name} finaliza en t={env.now}")
+    wait_times.append(ready_time)
+    turnaround_times.append(env.now - ready_time)
+    response_times.append(ready_time - env.now + CPU_SPEED)
+
 
 
